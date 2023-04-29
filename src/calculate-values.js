@@ -4,6 +4,15 @@ function calculateFV(pv, rate, period) {
     return fv;
 }
 
+function roundValue(amount) {
+
+    const precision = 100;
+    const roundedValue = Math.round(amount * precision) / precision
+
+    return roundedValue;
+}
+
 module.exports = { 
-    calculateFV 
+    calculateFV,
+    roundValue
 };

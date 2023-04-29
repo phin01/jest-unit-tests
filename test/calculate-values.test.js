@@ -71,4 +71,20 @@ describe('roundValue', () => {
         // Expected result
         expect(amount).toBe(50.26);
     });
+
+    test('2+ decimals, 1.005= => Round up to 1.01', () => {
+        // Operation
+        const amount = Calculator.roundValue(1.005);
+
+        // Expected result
+        expect(amount).toBe(1.01);
+    });
+
+    test('2+ decimals, 0.005= => Round up to 0.01', () => {
+        // Operation
+        const amount = Calculator.roundValue(0.005);
+
+        // Expected result
+        expect(amount).toBe(0.01);
+    });
 });

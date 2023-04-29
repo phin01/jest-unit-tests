@@ -169,3 +169,35 @@ describe('calculatePmt', () => {
         
     });
 });
+
+
+// Tests for custom matcher AddsUpTo
+describe('AddsUpTo', () =>{
+
+    test('Integer array sum', () => {
+        // Given
+        array = [1, 5, 2, 7];
+        sum = 1+5+2+7;
+
+        // Expected Result
+        expect(array).AddsUpTo(sum);
+    });
+
+    test('Decimal array sum', () => {
+        // Given
+        array = [1.36, 5.12, 2.63, 7.95];
+        sum = 1.36 + 5.12 + 2.63 + 7.95;
+
+        // Expected Result
+        expect(array).AddsUpTo(sum);
+    });
+
+    test('Test error path for Matcher', () => {
+        // Given
+        array = [1.3, 5.1, 2.6, 7.9];
+        sum = 0;
+
+        // Expected Result
+        expect(array).not.AddsUpTo(sum);
+    });
+})

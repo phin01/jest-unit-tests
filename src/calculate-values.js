@@ -7,8 +7,9 @@ function calculateFV(pv, rate, period) {
 function roundValue(amount) {
 
     const precision = 100;
-    const round = parseFloat((amount * precision).toFixed(11));
-    return Math.round(round) / precision;
+    const roundedValue = Math.round((amount + Number.EPSILON) * precision) / precision;
+
+    return roundedValue;
 }
 
 module.exports = { 

@@ -1,4 +1,5 @@
 const Calculator = require('../src/calculate-values');
+require('./custom-matchers');
 
 // Tests for calculateFV function
 describe('calculateFV', () => {
@@ -89,6 +90,8 @@ describe('roundValue', () => {
     });
 });
 
+
+// Tests for calculatePmt function
 describe('calculatePmt', () => {
     
     test('Number of payments returned is correct', () => {
@@ -110,10 +113,10 @@ describe('calculatePmt', () => {
         
         // Operation
         const payments = Calculator.calculatePmt(amount, numberOfPayments);
-        const sumOfPayments = payments.reduce((a, b) => a + b, 0);
         
         // Expected result
-        expect(sumOfPayments).toBe(amount);
+        expect(payments).AddsUpTo(amount);
+        
     });
 
     test('Total amount => Sum of all payments', () => {
@@ -123,10 +126,9 @@ describe('calculatePmt', () => {
         
         // Operation
         const payments = Calculator.calculatePmt(amount, numberOfPayments);
-        const sumOfPayments = payments.reduce((a, b) => a + b, 0);
-        
+
         // Expected result
-        expect(sumOfPayments).toBe(amount);
+        expect(payments).AddsUpTo(amount);
     });
 
     test('Total amount (with decimals) => Sum of all payments', () => {
@@ -136,10 +138,10 @@ describe('calculatePmt', () => {
         
         // Operation
         const payments = Calculator.calculatePmt(amount, numberOfPayments);
-        const sumOfPayments = payments.reduce((a, b) => Calculator.roundValue(a + b), 0);
         
         // Expected result
-        expect(sumOfPayments).toBe(amount);
+        expect(payments).AddsUpTo(amount);
+        
     });
 
     test('Total amount => Sum of all payments (with rounding adjustment to first payment)', () => {
@@ -149,10 +151,9 @@ describe('calculatePmt', () => {
         
         // Operation
         const payments = Calculator.calculatePmt(amount, numberOfPayments);
-        const sumOfPayments = payments.reduce((a, b) => a + b, 0);
         
         // Expected result
-        expect(sumOfPayments).toBe(amount);
+        expect(payments).AddsUpTo(amount);
     });
 
     test('Total amount (with 3+ decimals) => Sum of all payments (with rounding adjustment to first payment)', () => {
@@ -162,9 +163,9 @@ describe('calculatePmt', () => {
         
         // Operation
         const payments = Calculator.calculatePmt(amount, numberOfPayments);
-        const sumOfPayments = payments.reduce((a, b) => Calculator.roundValue(a + b), 0);
         
         // Expected result
-        expect(sumOfPayments).toBe(Calculator.roundValue(amount));
+        expect(payments).AddsUpTo(amount);
+        
     });
 });

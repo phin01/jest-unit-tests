@@ -7,7 +7,7 @@ function calculateFV(pv, rate, period) {
 function roundValue(amount) {
 
     const precision = 100;
-    const roundedValue = Math.round(amount * precision) / precision
+    const roundedValue = Math.round(amount * precision) / precision;
 
     return roundedValue;
 }

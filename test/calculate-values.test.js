@@ -88,3 +88,83 @@ describe('roundValue', () => {
         expect(amount).toBe(0.01);
     });
 });
+
+describe('calculatePmt', () => {
+    
+    test('Number of payments returned is correct', () => {
+        // Given
+        const numberOfPayments = 6;
+        const amount = 200;
+        
+        // Operation
+        const payments = Calculator.calculatePmt(amount, numberOfPayments);
+
+        // Expected result
+        expect(payments.length).toBe(numberOfPayments);
+    });
+
+    test('Total amount => Single payment value', () => {
+        // Given
+        const numberOfPayments = 1;
+        const amount = 76;
+        
+        // Operation
+        const payments = Calculator.calculatePmt(amount, numberOfPayments);
+        const sumOfPayments = payments.reduce((a, b) => a + b, 0);
+        
+        // Expected result
+        expect(sumOfPayments).toBe(amount);
+    });
+
+    test('Total amount => Sum of all payments', () => {
+        // Given
+        const numberOfPayments = 12;
+        const amount = 1200;
+        
+        // Operation
+        const payments = Calculator.calculatePmt(amount, numberOfPayments);
+        const sumOfPayments = payments.reduce((a, b) => a + b, 0);
+        
+        // Expected result
+        expect(sumOfPayments).toBe(amount);
+    });
+
+    test('Total amount (with decimals) => Sum of all payments', () => {
+        // Given
+        const numberOfPayments = 12;
+        const amount = 1200.60;
+        
+        // Operation
+        const payments = Calculator.calculatePmt(amount, numberOfPayments);
+        const sumOfPayments = payments.reduce((a, b) => Calculator.roundValue(a + b), 0);
+        
+        // Expected result
+        expect(sumOfPayments).toBe(amount);
+    });
+
+    test('Total amount => Sum of all payments (with rounding adjustment to first payment)', () => {
+        // Given
+        const numberOfPayments = 3;
+        const amount = 100;
+        
+        // Operation
+        const payments = Calculator.calculatePmt(amount, numberOfPayments);
+        const sumOfPayments = payments.reduce((a, b) => a + b, 0);
+        
+        // Expected result
+        expect(sumOfPayments).toBe(amount);
+    });
+
+    test('Total amount (with 3+ decimals) => Sum of all payments (with rounding adjustment to first payment)', () => {
+        // Given
+        const numberOfPayments = 16;
+        const amount = 487.187424;
+        
+        // Operation
+        const payments = Calculator.calculatePmt(amount, numberOfPayments);
+        const sumOfPayments = payments.reduce((a, b) => Calculator.roundValue(a + b), 0);
+        
+        // Expected result
+        expect(sumOfPayments).toBe(Calculator.roundValue(amount));
+    });
+});
